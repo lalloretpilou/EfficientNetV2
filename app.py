@@ -7,7 +7,7 @@ import requests
 app = Flask(__name__)
 
 # URL de téléchargement du modèle sur GitHub (fichier brut)
-model_url = 'https://raw.githubusercontent.com/votre-repo/votre-branch/model.h5'
+model_url = 'https://github.com/lalloretpilou/EfficientNetV2/blob/3b2e0b1af9af806e8173e092e75011f5dc81491b/model_transfer_learning_EfficientNetV2.h5'
 model_path = '/tmp/model.h5'
 
 if not os.path.exists(model_path):
