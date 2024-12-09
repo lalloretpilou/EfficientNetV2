@@ -1,36 +1,50 @@
-from flask import Flask, request, jsonify
+import streamlit as st
 import tensorflow as tf
+from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
-import os
-import requests
+from PIL import Image
 
-app = Flask(__name__)
+# Charger le modèle pré-entraîné
+MODEL_PATH = "model_transfer_learning_VGG16.h5"
+model = tf.keras.models.load_model(MODEL_PATH)
 
-# URL de téléchargement du modèle sur GitHub (fichier brut)
-model_url = 'https://github.com/lalloretpilou/EfficientNetV2/blob/3b2e0b1af9af806e8173e092e75011f5dc81491b/model_transfer_learning_EfficientNetV2.h5'
-model_path = '/tmp/model.h5'
+# Classes des chiens
+CLASSES = ['Chihuahua', 'Sussex_spaniel', 'Yorkshire_terrier', 'miniature_schnauzer']
 
-if not os.path.exists(model_path):
-    print("Téléchargement du modèle depuis GitHub...")
-    r = requests.get(model_url, allow_redirects=True)
-    open(model_path, 'wb').write(r.content)
+IMG_SIZE = (128, 128)
 
-model = tf.keras.models.load_model(model_path)
+# Fonction pour effectuer une prédiction
+def predict(image):
+    image = image.resize(IMG_SIZE)
+    image_array = img_to_array(image) / 255.0  # Normaliser les pixels entre 0 et 1
+    image_array = np.expand_dims(image_array, axis=0)  # Ajouter une dimension pour le batch
 
-@app.route('/')
-def home():
-    return 'Bienvenue sur le modèle Heroku !'
+    predictions = model.predict(image_array)
+    predicted_index = np.argmax(predictions)
+    confidence = predictions[0][predicted_index]
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.get_json()
-    input_data = np.array(data['input']).reshape(1, -1)
-    prediction = model.predict(input_data)
-    predicted_class = np.argmax(prediction, axis=1)
-    return jsonify({
-        'prediction': predicted_class.tolist(),
-        'probabilities': prediction.tolist()
-    })
+    return CLASSES[predicted_index], confidence, predictions[0]
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Interface utilisateur avec Streamlit
+st.title("Prédiction de races de chiens")
+st.write("Chargez une image de chien pour obtenir la prédiction.")
+
+# Charger une image
+uploaded_file = st.file_uploader("Choisissez une image", type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    # Afficher l'image chargée
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Image chargée", use_container_width=True)  # Remplacement ici
+
+    # Effectuer la prédiction
+    predicted_race, confidence, probabilities = predict(image)
+
+    # Afficher le résultat principal
+    st.write(f"### Race prédite : {predicted_race}")
+    st.write(f"### Confiance : {confidence:.2f}")
+
+    # Afficher les probabilités pour toutes les classes
+    st.write("### Probabilités pour chaque classe :")
+    for i, class_name in enumerate(CLASSES):
+        st.write(f"{class_name}: {probabilities[i] * 100:.2f}%")
