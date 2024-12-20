@@ -1,3 +1,16 @@
-model.h5
 __pycache__/
+*.h5
+*.tflite
+*.log
 *.csv
+*.txt
+*.json
+*.zip
+*.tar.gz
+*.npy
+*.npz
+notebooks/
+tests/
+data/
+*.ckpt
+*.onnx
