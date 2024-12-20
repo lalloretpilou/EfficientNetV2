@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 # Charger le modèle pré-entraîné
-MODEL_PATH = "model_transfer_learning_EfficientNetV2.keras"
+MODEL_PATH = "model_transfer_learning_EfficientNetV2.h5"
 model = tf.keras.models.load_model(MODEL_PATH)
 
 # Classes des chiens
