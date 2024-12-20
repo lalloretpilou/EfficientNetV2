@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-import tensorflow-cpu as tf
+import tensorflow as tf
 
 # Titre de l'application
 st.title("Catégorisez automatiquement des questions")
