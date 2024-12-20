@@ -51,5 +51,5 @@ if uploaded_file is not None:
 
 graph_path = 'class_distribution.png'
 
-st.header("Distribution des images par classe (depuis le notebook)")
+st.header("Distribution des images par classe & Echantillon d'image par race:")
 st.image(graph_path, caption="Distribution des images par classe", use_column_width=True)
