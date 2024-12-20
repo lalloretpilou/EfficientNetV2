@@ -49,7 +49,10 @@ if uploaded_file is not None:
     for i, class_name in enumerate(CLASSES):
         st.write(f"{class_name}: {probabilities[i] * 100:.2f}%")
 
-graph_path = 'class_distribution.png'
+class_distribution = 'class_distribution.png'
+exemple_echantillon = 'exemple_echantillon.png'
 
 st.header("Distribution des images par classe & Echantillon d'image par race:")
-st.image(graph_path, caption="Distribution des images par classe", use_column_width=True)
+st.image(class_distribution, caption="Distribution des images par classe", use_container_width=True)
+st.image(exemple_echantillon, caption="exemple_echantillon", use_container_width=True)
+
