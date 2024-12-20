@@ -6,7 +6,7 @@ import tensorflow as tf
 # Titre de l'application
 st.title("Catégorisez automatiquement des questions")
 
-api_url = "https://github.com/lalloretpilou/EfficientNetV2/blob/0b99eccb33bdecc8e12a6a544a88e0017933da48/EfficientNetV2B0.h5"  # Remplacez par l'URL de votre API
+api_url = "EfficientNetV2B0.h5"  # Remplacez par l'URL de votre API
 model = tf.keras.models.load_model(api_url)
 
 # Classes des chiens
