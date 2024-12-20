@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
-import tensorflow as tf
+from PIL import Image
+import tflite_runtime.interpreter as tflite  # Utilisation de tflite_runtime au lieu de TensorFlow
 
 # Titre de l'application
 st.title("Catégorisez automatiquement des questions")
