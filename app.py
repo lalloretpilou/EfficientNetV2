@@ -11,7 +11,7 @@ model = tf.keras.models.load_model(MODEL_PATH)
 # Classes des chiens
 CLASSES = ['Chihuahua', 'Sussex_spaniel', 'Yorkshire_terrier', 'miniature_schnauzer']
 
-IMG_SIZE = (128, 128)
+IMG_SIZE = (224, 224)
 
 # Fonction pour effectuer une prédiction
 def predict(image):
