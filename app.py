@@ -1,13 +1,12 @@
 import streamlit as st
-import requests
-from PIL import Image
 import tensorflow as tf
+from tensorflow.keras.preprocessing.image import img_to_array
+import numpy as np
+from PIL import Image
 
-# Titre de l'application
-st.title("Catégorisez automatiquement des questions")
-
-api_url = "EfficientNetV2B0.h5"  # Remplacez par l'URL de votre API
-model = tf.keras.models.load_model(api_url)
+# Charger le modèle pré-entraîné
+MODEL_PATH = "model_transfer_learning_VGG16.h5"
+model = tf.keras.models.load_model(MODEL_PATH)
 
 # Classes des chiens
 CLASSES = ['Chihuahua', 'Sussex_spaniel', 'Yorkshire_terrier', 'miniature_schnauzer']
