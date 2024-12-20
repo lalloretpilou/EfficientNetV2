@@ -48,3 +48,8 @@ if uploaded_file is not None:
     st.write("### Probabilités pour chaque classe :")
     for i, class_name in enumerate(CLASSES):
         st.write(f"{class_name}: {probabilities[i] * 100:.2f}%")
+
+graph_path = 'class_distribution.png'
+
+st.header("Distribution des images par classe (depuis le notebook)")
+st.image(graph_path, caption="Distribution des images par classe", use_column_width=True)
