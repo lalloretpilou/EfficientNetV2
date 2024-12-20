@@ -1,10 +1,9 @@
 import streamlit as st
 import requests
+import tensorflow-cpu as tf
 
 # Titre de l'application
 st.title("Catégorisez automatiquement des questions")
-
-input_text = st.text_area("Entrez le contenu du post à taguer:", "")
 
 api_url = "https://lalloret.pythonanywhere.com/predict"  # Remplacez par l'URL de votre API
 model = tf.keras.models.load_model(api_url)
